@@ -12,7 +12,7 @@ setInterval(() =>{
         counterDiv = document.createElement('div');
         counterDiv.id = "messageCounter"
         counterDiv.className = 'absolute';
-        counterDiv.style.right = '40px';
+        counterDiv.style.right = '50px';
         counterDiv.textContent = 50-messages.length+'/50';
 
         targetElm.insertAdjacentElement('afterend', counterDiv);
@@ -22,18 +22,31 @@ setInterval(() =>{
     if(counterDiv){
         garbageCollector();
         counterDiv.textContent = 50-messages.length+'/50'
+        if(!isGPT4()){
+            counterDiv.remove();
+            counterDiv!=undefined;
+        }
     }
-},5000);
+},2000);
 
 
 function isGPT4(){
     const gptSelector = (document.querySelector('[data-testid="gpt-4"] button'));
     const gptTitle = document.querySelector('.flex.flex-1.flex-grow.items-center.gap-1.p-1.text-gray-600.dark\\:text-gray-200.sm\\:justify-center.sm\\:p-0');
-    if (gptSelector && gptSelector.firstElementChild.classList.contains('bg-white')){
-        return true;
-    }else if(gptTitle && gptTitle.querySelector('span').textContent=='GPT-4'){
-        return true;
+    try {
+        if (gptSelector && gptSelector.firstElementChild.classList.contains('bg-white')){
+            return true;
+        }else if(
+            gptTitle && gptTitle.querySelector('span').textContent=='GPT-4'
+            || gptTitle.querySelector('span').textContent=='Code Interpreter'
+            || gptTitle.querySelector('span').textContent=='Plugins'
+        ){
+            return true;
+        }
+    } catch (error) {
+        return false
     }
+    
     return false
 }
 function handleClick(event) {
@@ -46,10 +59,10 @@ function handleClick(event) {
     }
 }
 function handleKey(event) {
-    console.log(event);
     var key = event.which || event.keyCode;
+    var regex = /^[\n\r]+$/;
     if ((event.keyCode === 13 || event.which === 13) && !event.shiftKey && !event.ctrlKey && !event.altKey) {
-        if(isGPT4()){
+        if(isGPT4() && !regex.test(this.textContent)){
             messages.push(new Date().getTime());
             document.getElementById('messageCounter').textContent = 50-messages.length+'/50';
             localStorage.setItem("messages",JSON.stringify(messages))
@@ -65,11 +78,10 @@ function checkSaved(){
 
 function garbageCollector(){
     for(let i = 0; i<messages.length;i++){
-        const fechaActual = new Date();
-        const diferenciaTiempoMs = fechaActual.getTime() - messages[i];
-        const diferenciaHoras = diferenciaTiempoMs / (1000 * 60 * 60); 
-        console.log(diferenciaHoras);
-        if (diferenciaHoras >= 3) {
+        const actualDate = new Date();
+        const diferenceMS = actualDate.getTime() - messages[i];
+        const diferenceHours = diferenceMS / (1000 * 60 * 60); 
+        if (diferenceHours >= 3) {
             messages.splice(i,1);
         }
     }
