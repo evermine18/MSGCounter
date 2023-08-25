@@ -4,7 +4,7 @@ var messages = [];
 console.log("Init");
 
 checkSaved();
-addDialog("This is a test message, you can close it by clicking on the X button or by clicking on the message itself.");
+addDialog("The MessageCounter extension for GPT-4 has been initiated");
 
 setInterval(() =>{
     let counterDiv = document.getElementById('messageCounter');
@@ -22,6 +22,7 @@ setInterval(() =>{
     }
     if(counterDiv){
         garbageCollector();
+        eventSet()
         counterDiv.textContent = 50-messages.length+'/50'
         if(!isGPT4()){
             counterDiv.remove();
@@ -92,7 +93,7 @@ function addDialog(message){
     let spanElement = document.querySelector('span.pointer-events-none');
     var htmlContent = `<div data-state="entered" class="toast-root" style="height: 98px; margin-bottom: 0px;">
     <div class="w-full p-1 text-center md:w-auto md:text-justify">
-        <div class="px-3 py-2 rounded-md text-white inline-flex flex-row border pointer-events-auto gap-2 border-orange-500 bg-orange-500" role="alert">
+        <div class="px-3 py-2 rounded-md text-white inline-flex flex-row border pointer-events-auto gap-2 border-green-500 bg-green-500" role="alert">
             <div class="mt-1 flex-shrink-0 flex-grow-0">
                 <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
@@ -119,4 +120,17 @@ function addDialog(message){
     document.getElementById('cerrarAlert').addEventListener('click',()=>{
         spanElement.removeChild(spanElement.lastChild);
     })
+}
+
+function eventSet(){
+    const botonBuscado = document.querySelector('.btn.relative.btn-primary.mr-2');
+
+    if (botonBuscado) {
+        
+        if (!botonBuscado.hasAttribute('data-event-added')) {
+            botonBuscado.addEventListener('click', handleClick);
+            botonBuscado.setAttribute('data-event-added', 'true');
+        }
+
+    }
 }
