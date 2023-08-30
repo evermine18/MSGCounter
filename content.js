@@ -29,6 +29,7 @@ setInterval(() =>{
             counterDiv!=undefined;
         }
     }
+    localStorage.setItem("messages",JSON.stringify(messages))
 },2000);
 
 
@@ -40,7 +41,7 @@ function isGPT4(){
             return true;
         }else if(
             gptTitle && gptTitle.querySelector('span').textContent=='GPT-4'
-            || gptTitle.querySelector('span').textContent=='Code Interpreter'
+            || gptTitle.querySelector('span').textContent=='Advanced Data Analysis'
             || gptTitle.querySelector('span').textContent=='Plugins'
         ){
             return true;
