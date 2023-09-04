@@ -29,7 +29,6 @@ setInterval(() =>{
             counterDiv!=undefined;
         }
     }
-    localStorage.setItem("messages",JSON.stringify(messages))
 },2000);
 
 
@@ -86,6 +85,7 @@ function garbageCollector(){
         const diferenceHours = diferenceMS / (1000 * 60 * 60); 
         if (diferenceHours >= 3) {
             messages.splice(i,1);
+            localStorage.setItem("messages",JSON.stringify(messages))
         }
     }
 }
