@@ -14,11 +14,13 @@ setInterval(() =>{
         counterDiv.id = "messageCounter"
         counterDiv.className = 'absolute';
         counterDiv.style.right = '50px';
+        counterDiv.style.bottom = '15px';
         counterDiv.textContent = 50-messages.length+'/50';
 
         targetElm.insertAdjacentElement('afterend', counterDiv);
         targetElm.addEventListener('click', handleClick);
         document.getElementById('prompt-textarea').addEventListener('keyup',handleKey)
+        document.getElementById('prompt-textarea').style.width='calc(100% - 50px)';
     }
     if(counterDiv){
         garbageCollector();
