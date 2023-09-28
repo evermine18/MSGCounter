@@ -1,7 +1,7 @@
 {
   "update_url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx",
   "name": "ChatGPT Message counter",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "manifest_version": 3,
   "description": "A Chrome extension that shows a counter on a chatgpt-v4 chat",
   "permissions": ["*://chat.openai.com/*"],
