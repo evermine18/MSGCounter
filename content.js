@@ -44,6 +44,7 @@ function isGPT4(){
             gptTitle && gptTitle.querySelector('span').textContent=='GPT-4'
             || gptTitle.querySelector('span').textContent=='Advanced Data Analysis'
             || gptTitle.querySelector('span').textContent=='Plugins'
+            || gptTitle.querySelector('span').textContent=='Web Browsing'
         ){
             return true;
         }
