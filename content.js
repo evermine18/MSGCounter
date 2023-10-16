@@ -37,7 +37,6 @@ setInterval(() =>{
 function isGPT4(){
     const gptSelector = (document.querySelector('[data-testid="gpt-4"] button'));
     const gptTitle = document.querySelector('.flex.flex-1.flex-grow.items-center.gap-1.px-2.py-1.text-gray-600.dark\\:text-gray-200.sm\\:justify-center.sm\\:p-0');
-    console.log(gptTitle);
     try {
         if (gptSelector && gptSelector.firstElementChild.classList.contains('bg-white')){
             return true;
